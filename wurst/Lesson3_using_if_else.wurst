@@ -1,0 +1,30 @@
+package Lesson3_using_if_else
+
+import Units_neutral
+
+public unit u
+
+init
+/*	if p01.isAlive()
+		p01.setName("Paladino ta vivo krai")
+
+	if players[0].isIngame()
+		p01.setArmor(500.)
+	let armor = u.getArmor()
+	
+	if armor == 500.
+		print("Your armor is good:")
+		print(armor)
+	else
+		print("Your armor is not:")
+		print(armor)
+
+*/
+
+
+
+
+
+
+
+

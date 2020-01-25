@@ -1,0 +1,61 @@
+package Lesson5_triggers
+
+import public Units_neutral
+
+function start_quest1()
+    let trigUnit = GetTriggerUnit()
+    let tarUnit  = GetOrderTargetUnit()
+    if tarUnit == q1
+        if quest1 == 0
+            if IsUnitInRange(trigUnit, tarUnit, 150)
+                PlaySoundBJ(pickup_quest)
+                print("|cffff0000Paladin Master:|r Greetings, stranger... I've heard that you want")
+                print("to became a |cffffff00Master|r |cffffff00of|r  |cffffff00Paladins|r, right? So, i need you to kill")
+                print("a especific creature inside the village then bring me it blood...")
+                quest1 = 1
+        else if quest1 == 1
+            if IsUnitInRange(trigUnit, tarUnit, 150)
+                if n5.isAlive() == false
+                    print("Well done, stranger. I'll give you my bless...")
+                    p01facing = p01.getFacingAngle()
+                    p01pos = p01.getPos()
+                    let p02 = createUnit(players[0], 'Hart', p01pos, p01facing)
+                    //p02.setAnimation('standVictory'.
+                    p01.remove()
+                    PlaySoundBJ(turnin_quest)
+                    quest1 = 0
+
+function clear()
+    ClearTextMessages()
+
+function say_dead()
+    print("Come on! I'm a chicken!")
+
+init
+    //Quest1 start
+    let quest1 = CreateTrigger()
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+    ..addAction(function start_quest1)
+    
+    //Quest1 mission_target
+    CreateTrigger()
+    ..registerUnitEvent(n5, EVENT_UNIT_DEATH)
+    ..addAction(function say_dead)
+    //Quest1 end
+
+    //Quest2 start
+    let quest2 = CreateTrigger()
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER)
+    ..addAction(function start_quest2)
+
+    CreateTrigger()
+    ..registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH)
+    ..addAction(function start_quest2_count)
+    //Quest2 end
+    
+
+
+    CreateTrigger()
+    ..registerPlayerChatEvent(players[0], "-clear", true)
+    ..addAction(function clear)
+
